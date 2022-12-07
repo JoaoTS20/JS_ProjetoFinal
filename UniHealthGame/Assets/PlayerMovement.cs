@@ -6,13 +6,13 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [Header("Components")]
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     public LayerMask groundLayer;
 
     [Header("Horizontal Movement")]
-    private float moveSpeed=4f;
-    private Vector2 direction;
-    private bool rightDirection=true;
+    public float moveSpeed=4f;
+    public Vector2 direction;
+    public bool rightDirection=true;
 
 
     [Header("Vertical Movement")]
@@ -22,14 +22,16 @@ public class PlayerMovement : MonoBehaviour
 
     public float jumpSpeed=10f;
     public float jumpDelay=0.25f;
-    private float jumpTimer;
+    public float jumpTimer;
 
 
     [Header("Physics")]
-    private float maxSpeed= 7f;
+    public float maxSpeed= 10f;
     public float linearDrag=4f;
     public float gravity = 1f;
     public float fallMultiplier = 5f;
+
+    
 
 
 
@@ -45,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {   
         bool wasOnGround=onGround;
+
         onGround = Physics2D.Raycast(transform.position + colliderOffset, Vector2.down, groundLength, groundLayer) || Physics2D.Raycast(transform.position - colliderOffset, Vector2.down, groundLength, groundLayer);
         
         if(!wasOnGround && onGround){
@@ -58,21 +61,43 @@ public class PlayerMovement : MonoBehaviour
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         
         moveCharacter(direction.x);
+        
         if(jumpTimer > Time.time && onGround){
             Jump();
         }
 
+        detectPlayerMovement();
+
         updatePhysics();
     }
 
+    public void detectPlayerMovement(){
+        
+        /**
+        * TODO: Verificar melhor mas parece estar a detetar corretamente
+        */
 
+        if(Mathf.Abs(rb.velocity.y)!=0){
+            Debug.Log("Estou me a mover Saltar");
+        }
 
+        if(Mathf.Abs(rb.velocity.x)!=0 && rb.velocity.x < maxSpeed){
+            Debug.Log("Estou me a mover andar");
+        }
+
+        if(Mathf.Abs(rb.velocity.x)!=0 && rb.velocity.x == maxSpeed){
+            Debug.Log("Estou me a mover correr");
+        }
+
+    }
     public void moveCharacter(float horizontalDirection){
+        
         rb.AddForce(Vector2.right * horizontalDirection * moveSpeed);
 
         if((horizontalDirection > 0 && !rightDirection) || (horizontalDirection < 0 && rightDirection)){
             Flip();
         }
+
         if(Mathf.Abs(rb.velocity.x) > maxSpeed){
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
         }
