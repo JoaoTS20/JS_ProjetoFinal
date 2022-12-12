@@ -60,36 +60,31 @@ public class PlayerMovement : MonoBehaviour
 
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         
+        detectPlayerHorizontalMovement(direction.x);
+        
         moveCharacter(direction.x);
         
         if(jumpTimer > Time.time && onGround){
             Jump();
+            this.gameObject.GetComponent<PlayerHealthEnergy>().reduceHealthEnergy("Jump");
         }
-
-        detectPlayerMovement();
 
         updatePhysics();
     }
 
-    public void detectPlayerMovement(){
-        
-        /**
-        * TODO: Verificar melhor mas parece estar a detetar corretamente
-        */
-
-        if(Mathf.Abs(rb.velocity.y)!=0){
-            Debug.Log("Estou me a mover Saltar");
+    public void detectPlayerHorizontalMovement(float horizontalDirection){
+        //TODO: Parece estar a funcionar
+        if (horizontalDirection != 0){
+            if(rb.velocity.x==maxSpeed){
+                this.gameObject.GetComponent<PlayerHealthEnergy>().reduceHealthEnergy("Run");
+                Debug.Log("Estou me a mover correr");
+            }
+            else{
+                this.gameObject.GetComponent<PlayerHealthEnergy>().reduceHealthEnergy("Normal");
+            }
         }
-
-        if(Mathf.Abs(rb.velocity.x)!=0 && rb.velocity.x < maxSpeed){
-            Debug.Log("Estou me a mover andar");
-        }
-
-        if(Mathf.Abs(rb.velocity.x)!=0 && rb.velocity.x == maxSpeed){
-            Debug.Log("Estou me a mover correr");
-        }
-
     }
+
     public void moveCharacter(float horizontalDirection){
         
         rb.AddForce(Vector2.right * horizontalDirection * moveSpeed);
@@ -101,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
         if(Mathf.Abs(rb.velocity.x) > maxSpeed){
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
         }
+        
         ///animator.SetFloat("horizontal", Mathf.Abs(rb.velocity.x));
     }
 
