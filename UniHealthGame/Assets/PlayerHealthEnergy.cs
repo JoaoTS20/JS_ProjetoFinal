@@ -1,36 +1,80 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealthEnergy : MonoBehaviour
-{
+{   
+    public float lerpspeed;
+
     [Header("Max Values")]
     public float maxHealth=100f;
     public float maxEnergy=100f;
+
+    [Header("Health Bar Variables")]
+    public Text healthText;
+    public Image healthBar;
+
+
+    [Header("Energy Bar Variables")]
+    public Text energyText;
+    public Image energyBar;
+    
+
 
     [Header("Current Values")]
     public float currentHealth=100f;
     public float currentEnergy=100f;
     
-    [Header("Reduction Values")]
+    [Header("Move Reduction Values")]
     //TODO: Acertar Melhor Valores
     public float normalReduction=0.001f;
     public float jumpReduction=0.2f;
     public float runReduction=0.002f;
+
+    [Header("Item Altering Values")]
+    public float alcoolEffect=-1.0f;
+    // Negative values will increase
+
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth=100f;
         currentEnergy=100f;
+
+        //TODO ver melhor forma de obter valores
     }
 
     // Update is called once per frame
     void Update()
     {
+        lerpspeed=3f*Time.deltaTime;
+
         if(currentEnergy<0){
             currentEnergy=0;
         }
+
+        if(currentHealth<0){
+            currentHealth=0;
+        }
+
+        //Update Text
+        healthText.text = "Health: " + currentHealth.ToString("N2") + "%";
+        energyText.text = "Energy: " + currentEnergy.ToString("N2") + "%";
+
+        //Update Bars
+        updateBars();
+
+    }
+
+    public void updateBars(){
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount,currentHealth/maxHealth,lerpspeed);
+        energyBar.fillAmount = Mathf.Lerp(energyBar.fillAmount,currentEnergy/maxEnergy,lerpspeed); 
+        
+        healthBar.color=Color.Lerp(Color.red,Color.green,(currentHealth/maxHealth));
+        energyBar.color=Color.Lerp(Color.red,Color.green,(currentEnergy/maxEnergy));
+
     }
 
     public void reduceHealthEnergy(string movement){
@@ -53,7 +97,6 @@ public class PlayerHealthEnergy : MonoBehaviour
         }
 
     }
-
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.CompareTag("ItemTest")){
             
