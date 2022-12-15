@@ -54,5 +54,19 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     }
 
-    //TODO: Adicionar a função de ao colidir com x objeto e ter x efeitos
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.CompareTag("ItemTest")){
+            
+            if(currentEnergy<=0){
+                currentHealth-=20;
+            }
+            else{
+                currentEnergy-=20;
+            }
+
+            Debug.Log("Colisão e tirei vida");
+            Destroy(other.gameObject);
+        }
+    }
+    //TODO: Adicionar diferentes tipos de tag para os items a colidir e planear os valores a tirar/aumetar
 }
