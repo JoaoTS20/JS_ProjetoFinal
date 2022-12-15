@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerHealthEnergy : MonoBehaviour
 {   
-    public float lerpspeed;
+    private float lerpspeed;
 
     [Header("Max Values")]
     public float maxHealth=100f;
@@ -28,9 +28,9 @@ public class PlayerHealthEnergy : MonoBehaviour
     
     [Header("Move Reduction Values")]
     //TODO: Acertar Melhor Valores
-    public float normalReduction=0.001f;
+    public float normalReduction=0.01f;
     public float jumpReduction=0.2f;
-    public float runReduction=0.002f;
+    public float runReduction=0.02f;
 
     [Header("Item Altering Values")]
     public float alcoolEffect=-1.0f;
@@ -42,6 +42,13 @@ public class PlayerHealthEnergy : MonoBehaviour
     {
         currentHealth=100f;
         currentEnergy=100f;
+
+        energyBar=GameObject.Find("EnergyBar").GetComponent<Image>();
+        healthBar=GameObject.Find("HealthBar").GetComponent<Image>();
+        energyText=GameObject.Find("EnergyText").GetComponent<Text>();
+        healthText=GameObject.Find("HealthText").GetComponent<Text>();
+
+
 
         //TODO ver melhor forma de obter valores
     }

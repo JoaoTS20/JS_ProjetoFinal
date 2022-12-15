@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 905706329}
   - component: {fileID: 905706328}
   m_Layer: 5
-  m_Name: 'HealthText '
+  m_Name: HealthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5572,18 +5572,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab5f066c7935d4d86a4d64c9c5a4cef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lerpspeed: 0
   maxHealth: 100
   maxEnergy: 100
-  healthText: {fileID: 905706328}
-  healthBar: {fileID: 1594066630}
-  energyText: {fileID: 1401305277}
-  energyBar: {fileID: 2002154409}
+  healthText: {fileID: 0}
+  healthBar: {fileID: 0}
+  energyText: {fileID: 0}
+  energyBar: {fileID: 0}
   currentHealth: 100
   currentEnergy: 100
-  normalReduction: 0.001
+  normalReduction: 0.01
   jumpReduction: 0.2
-  runReduction: 0.002
+  runReduction: 0.02
   alcoolEffect: -1
 --- !u!1 &1401305275
 GameObject:
