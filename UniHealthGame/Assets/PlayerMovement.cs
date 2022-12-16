@@ -31,6 +31,14 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = 1f;
     public float fallMultiplier = 5f;
 
+    [Header("Item Boost Test")]
+    public float effectDuration=0;
+    public float effectTime=4;
+    public bool effectApplied=false;
+    public float effectMoveSpeed=30f;
+    public float effectMaxSpeed= 50f;
+
+
     
 
 
@@ -58,6 +66,17 @@ public class PlayerMovement : MonoBehaviour
             jumpTimer = Time.time + jumpDelay;
         }
 
+        if(effectApplied){
+            effectDuration+=Time.deltaTime;
+            if(effectDuration > effectTime){
+                Debug.Log("Effect End!!");
+                effectApplied=false;
+                effectDuration=0;
+                maxSpeed= 10f;
+                moveSpeed=4f;
+            }
+        }
+
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         
         detectPlayerHorizontalMovement(direction.x);
@@ -70,6 +89,18 @@ public class PlayerMovement : MonoBehaviour
         }
 
         updatePhysics();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.CompareTag("ItemBoostTest")){
+            effectApplied=true;
+            
+            maxSpeed=effectMaxSpeed;
+            moveSpeed=moveSpeed;
+
+            Debug.Log("Effect Activated!!");
+            Destroy(other.gameObject);
+        }
     }
 
     public void detectPlayerHorizontalMovement(float horizontalDirection){
