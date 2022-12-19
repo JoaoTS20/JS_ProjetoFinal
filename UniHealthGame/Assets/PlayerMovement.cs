@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
 
     [Header("Horizontal Movement")]
-    public float moveSpeed=4f;
+    public float normaMoveSpeed=4f;
+    public float referenceMoveSpeed;
     public Vector2 direction;
     public bool rightDirection=true;
 
@@ -20,23 +21,33 @@ public class PlayerMovement : MonoBehaviour
     public float groundLength = 0.981f; 
     public Vector3 colliderOffset;
 
-    public float jumpSpeed=10f;
+    public float referenceJumpSpeed;
+
+    public float normalJumpSpeed=10f;
     public float jumpDelay=0.25f;
     public float jumpTimer;
 
 
     [Header("Physics")]
-    public float maxSpeed= 10f;
+    public float referenceMaxSpeed;
+    public float normalMaxSpeed= 10f;
     public float linearDrag=4f;
     public float gravity = 1f;
     public float fallMultiplier = 5f;
 
+    [Header("Current Movement Values")]
+    public float currentMoveSpeed;
+    public float currentMaxSpeed;
+    public float currentJumpSpeed;
+
+
     [Header("Item Boost Test")]
-    public float effectDuration=0;
-    public float effectTime=4;
+    public float effectDuration=4;
+    public float effectTimer=0;
     public bool effectApplied=false;
-    public float effectMoveSpeed=30f;
-    public float effectMaxSpeed= 50f;
+    public float effectMoveSpeed=0.2f;
+    public float effectMaxSpeed= 0.2f;
+    public float effectJumpSpeed= 0.2f;
 
 
     
@@ -47,6 +58,17 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         Debug.Log("Hello, world!");
+        
+        //Current Movement Values
+        currentJumpSpeed=normalJumpSpeed;
+        currentMoveSpeed=normaMoveSpeed;
+        currentMaxSpeed=normalMaxSpeed;
+
+        // Reference Values post Effect
+        referenceJumpSpeed=normalJumpSpeed;
+        referenceMoveSpeed=normaMoveSpeed;
+        referenceMaxSpeed=normalMaxSpeed;
+
         rb = GetComponent<Rigidbody2D>();
         groundLayer=LayerMask.GetMask("Ground");
     }
@@ -67,13 +89,37 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if(effectApplied){
-            effectDuration+=Time.deltaTime;
-            if(effectDuration > effectTime){
+            effectTimer+=Time.deltaTime;
+            if(effectTimer> effectDuration){
                 Debug.Log("Effect End!!");
                 effectApplied=false;
-                effectDuration=0;
-                maxSpeed= 10f;
-                moveSpeed=4f;
+                effectTimer=0;
+
+                //TODO: Ver se tirar o boost por percentagem funciona para todas o tipo de velocidades (deve) mas n tem o caso da speed reference mudar durante boost
+                
+                // Max Speed
+                if(((currentMaxSpeed-currentMaxSpeed*effectMaxSpeed)<referenceMaxSpeed)){
+                    currentMaxSpeed=referenceMaxSpeed;
+                }
+                else{
+                    currentMaxSpeed-=currentMaxSpeed*effectMaxSpeed;
+                }
+
+                // Move Speed
+                if((currentMoveSpeed-currentMoveSpeed*effectMoveSpeed)<referenceMoveSpeed){
+                    currentMoveSpeed=referenceMoveSpeed;
+                }
+                else{
+                    currentMoveSpeed-=currentMoveSpeed*effectMoveSpeed;
+                }
+
+                // Jump Speed
+                if((currentJumpSpeed-currentMoveSpeed*effectJumpSpeed)<referenceJumpSpeed){
+                    currentJumpSpeed=referenceJumpSpeed;
+                }
+                else{
+                    currentJumpSpeed-=currentJumpSpeed*effectJumpSpeed;
+                }
             }
         }
 
@@ -94,9 +140,8 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.CompareTag("ItemBoostTest")){
             effectApplied=true;
-            
-            maxSpeed=effectMaxSpeed;
-            moveSpeed=moveSpeed;
+            currentMaxSpeed+=currentMaxSpeed*effectMaxSpeed;
+            currentMoveSpeed+=currentMoveSpeed*effectMoveSpeed;
 
             Debug.Log("Effect Activated!!");
             Destroy(other.gameObject);
@@ -106,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
     public void detectPlayerHorizontalMovement(float horizontalDirection){
         //TODO: Parece estar a funcionar
         if (horizontalDirection != 0){
-            if(rb.velocity.x==maxSpeed){
+            if(rb.velocity.x==currentMaxSpeed){
                 this.gameObject.GetComponent<PlayerHealthEnergy>().reduceHealthEnergy("Run");
                 Debug.Log("Estou me a mover correr");
             }
@@ -118,14 +163,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void moveCharacter(float horizontalDirection){
         
-        rb.AddForce(Vector2.right * horizontalDirection * moveSpeed);
+        rb.AddForce(Vector2.right * horizontalDirection * currentMoveSpeed);
 
         if((horizontalDirection > 0 && !rightDirection) || (horizontalDirection < 0 && rightDirection)){
             Flip();
         }
 
-        if(Mathf.Abs(rb.velocity.x) > maxSpeed){
-            rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
+        if(Mathf.Abs(rb.velocity.x) > currentMaxSpeed){
+            rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * currentMaxSpeed, rb.velocity.y);
         }
         
         ///animator.SetFloat("horizontal", Mathf.Abs(rb.velocity.x));
@@ -154,7 +199,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(){
         rb.velocity = new Vector2(rb.velocity.x, 0);
-        rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+        rb.AddForce(Vector2.up * currentJumpSpeed, ForceMode2D.Impulse);
         jumpTimer = 0;
         //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
     }

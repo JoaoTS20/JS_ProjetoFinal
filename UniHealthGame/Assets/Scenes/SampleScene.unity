@@ -5580,24 +5580,31 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
-  moveSpeed: 4
+  normaMoveSpeed: 4
+  referenceMoveSpeed: 0
   direction: {x: 0, y: 0}
   rightDirection: 1
   onGround: 0
   groundLength: 0.981
   colliderOffset: {x: 0, y: 0, z: 0}
-  jumpSpeed: 10
+  referenceJumpSpeed: 0
+  normalJumpSpeed: 10
   jumpDelay: 0.25
   jumpTimer: 0
-  maxSpeed: 10
+  referenceMaxSpeed: 0
+  normalMaxSpeed: 10
   linearDrag: 4
   gravity: 1
   fallMultiplier: 5
-  effectDuration: 0
-  effectTime: 4
+  currentMoveSpeed: 0
+  currentMaxSpeed: 0
+  currentJumpSpeed: 0
+  effectDuration: 4
+  effectTimer: 0
   effectApplied: 0
-  effectMoveSpeed: 30
-  effectMaxSpeed: 50
+  effectMoveSpeed: 0.2
+  effectMaxSpeed: 0.2
+  effectJumpSpeed: 0.2
 --- !u!114 &1239833437
 MonoBehaviour:
   m_ObjectHideFlags: 0
