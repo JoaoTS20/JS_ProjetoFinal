@@ -140,6 +140,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.CompareTag("ItemBoostTest")){
             effectApplied=true;
+            //TODO; DAR TALVEZ RESTART TIME SE EFEITO JÁ ESTIVER ATIVO?
             currentMaxSpeed+=currentMaxSpeed*effectMaxSpeed;
             currentMoveSpeed+=currentMoveSpeed*effectMoveSpeed;
 

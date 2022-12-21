@@ -26,7 +26,7 @@ public class PlayerHealthEnergy : MonoBehaviour
     public float currentHealth=100f;
     public float currentEnergy=100f;
     
-    [Header("Move Reduction Values")]
+    [Header("Movement Reduction Values")]
     //TODO: Acertar Melhor Valores
     public float normalReduction=0.01f;
     public float jumpReduction=0.2f;
