@@ -32,9 +32,20 @@ public class PlayerHealthEnergy : MonoBehaviour
     public float jumpReduction=0.2f;
     public float runReduction=0.02f;
 
-    [Header("Item Altering Values")]
-    public float alcoolEffect=-1.0f;
-    // Negative values will increase
+    [Header("Items Altering Values")]
+    public Dictionary<string,ItemsClass> itemsDict = new Dictionary<string,ItemsClass>(){
+        {"ItemTest", new ItemsClass("ItemTest",-0.2f,-0.2f)},
+        {"Fruta", new ItemsClass("Fruta",0.15f,0.15f)}, // Aumento 15%
+        {"Exercicio", new ItemsClass("Exercicio",0.10f,-0.05f)}, // Aumento 10% Saúde, diminui 5% energia
+        {"Chocolates", new ItemsClass("Chocolates",0.0f,0.05f)}, // Aumento 5% Energia
+        {"Legumes", new ItemsClass("Legumes",0.15f,0.05f)}, // Aumento Saúde 15% e Aumento 5% Energia 
+        {"FastFood", new ItemsClass("FastFood",-0.20f,-0.10f)}, // Diminui Saúde 20% e Diminui 10% Energia 
+        {"Alcool", new ItemsClass("Alcool",-0.10f,0.5f)}, // Diminui Saúde 20% e Diminui 10% Energia 
+        {"BebidaEnergetica", new ItemsClass("BebidaEnergetica",-0.25f,0.30f)}, // Diminui Saúde 25% e Aumenta 30% Energia 
+        {"Cafe", new ItemsClass("Cafe",-0.10f,0.20f)}, // Diminui Saúde 20% e Aumenta 10% Energia 
+        {"Netflix", new ItemsClass("Netflix",0.0f,-0.10f)}, // Diminui 10% Energia 
+
+    };
 
 
     // Start is called before the first frame update
@@ -105,6 +116,16 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     }
     private void OnTriggerEnter2D(Collider2D other) {
+        
+        if(itemsDict.ContainsKey(other.gameObject.tag)){
+            currentHealth+=currentHealth*itemsDict[other.gameObject.tag].EffectHealth;
+            currentEnergy+=currentEnergy*itemsDict[other.gameObject.tag].EffectEnergy;
+
+            Debug.Log("Colisão com item "+other.gameObject.tag);
+            Destroy(other.gameObject);
+        }
+
+        /**
         if(other.gameObject.CompareTag("ItemTest")){
             
             if(currentEnergy<=0){
@@ -117,6 +138,7 @@ public class PlayerHealthEnergy : MonoBehaviour
             Debug.Log("Colisão e tirei vida");
             Destroy(other.gameObject);
         }
+        */
     }
     //TODO: Adicionar diferentes tipos de tag para os items a colidir e planear os valores a tirar/aumetar
 }

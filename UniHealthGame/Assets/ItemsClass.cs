@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-class ItemsClass
+public class ItemsClass
 {   
     // Information Related
     private string tagName;
@@ -21,7 +21,7 @@ class ItemsClass
     private float effectTimer=0;
     private bool effectApplied=false;
     
-    //Items Constructor
+    //Normal Items Constructor
     public ItemsClass(string tagName, float effectHealth, float effectEnergy){
         this.tagName=tagName;
         this.effectHealth=effectHealth;
