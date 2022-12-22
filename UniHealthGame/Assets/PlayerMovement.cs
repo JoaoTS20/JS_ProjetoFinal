@@ -42,10 +42,13 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Items Boost")]
     public Dictionary<string,ItemsClass> itemsBoostDict = new Dictionary<string,ItemsClass>(){
-        {"ItemBoostTest", new ItemsClass("ItemBoostTest",8,0.2f,0.2f,0.2f)}
+        {"ItemBoostTest", new ItemsClass("ItemBoostTest",4,0.2f,0.2f,0.2f)},
+        {"BebidasEnergéticas", new ItemsClass("BebidasEnergéticas",6,0.5f,0.5f,0.5f)},
+        {"Cafe", new ItemsClass("Cafe",5,0.2f,0.2f,0.2f)},
+        {"Exercicio", new ItemsClass("Exercicio",5,0.2f,0.1f,0.1f)},
+        {"FastFood", new ItemsClass("FastFood",3,-0.2f,-0.2f,-0.2f) },
+
     };
-
-
 
 
     // Start is called before the first frame update
@@ -87,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
             if(itemsBoostDict[tag].EffectApplied){
                 itemsBoostDict[tag].EffectTimer+=Time.deltaTime;
                 if(itemsBoostDict[tag].EffectTimer > itemsBoostDict[tag].EffectDuration){
-                    Debug.Log("Effect "+ tag + " End!!");
+                    Debug.Log("Item " + itemsBoostDict[tag].TagName + "Effect "+ tag + " End!!");
                     itemsBoostDict[tag].EffectApplied=false;
                     itemsBoostDict[tag].EffectTimer=0;
                     
@@ -144,8 +147,7 @@ public class PlayerMovement : MonoBehaviour
             currentMaxSpeed+=currentMaxSpeed*itemsBoostDict[other.gameObject.tag].EffectMaxSpeed;
             currentMoveSpeed+=currentMoveSpeed*itemsBoostDict[other.gameObject.tag].EffectMoveSpeed;
             currentJumpSpeed+=currentJumpSpeed*itemsBoostDict[other.gameObject.tag].EffectJumpSpeed;
-            
-            Debug.Log("Effect Activated!!");
+            Debug.Log("Colisão com item " + other.gameObject.tag + "Effect Activated!!");
             Destroy(other.gameObject);
 
         }

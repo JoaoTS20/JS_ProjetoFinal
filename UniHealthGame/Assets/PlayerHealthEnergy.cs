@@ -41,8 +41,8 @@ public class PlayerHealthEnergy : MonoBehaviour
         {"Legumes", new ItemsClass("Legumes",0.15f,0.05f)}, // Aumento Saúde 15% e Aumento 5% Energia 
         {"FastFood", new ItemsClass("FastFood",-0.20f,-0.10f)}, // Diminui Saúde 20% e Diminui 10% Energia 
         {"Alcool", new ItemsClass("Alcool",-0.10f,0.5f)}, // Diminui Saúde 20% e Diminui 10% Energia 
-        {"BebidaEnergetica", new ItemsClass("BebidaEnergetica",-0.25f,0.30f)}, // Diminui Saúde 25% e Aumenta 30% Energia 
-        {"Cafe", new ItemsClass("Cafe",-0.10f,0.20f)}, // Diminui Saúde 20% e Aumenta 10% Energia 
+        {"BebidaEnergetica", new ItemsClass("BebidaEnergetica",-0.25f,0.20f)}, // Diminui Saúde 25% e Aumenta 30% Energia 
+        {"Cafe", new ItemsClass("Cafe",0.0f,0.20f)}, // Aumenta 10% Energia 
         {"Netflix", new ItemsClass("Netflix",0.0f,-0.10f)}, // Diminui 10% Energia 
 
     };
