@@ -32,8 +32,8 @@ public class PlayerHealthEnergy : MonoBehaviour
     public float jumpReduction=0.2f;
     public float runReduction=0.02f;
 
-    [Header("Items Altering Values")]
-    public Dictionary<string,ItemsClass> itemsDict = new Dictionary<string,ItemsClass>(){
+    [Header("Items Effect")]
+    public Dictionary<string,ItemsClass> itemsEffectDict = new Dictionary<string,ItemsClass>(){
         {"ItemTest", new ItemsClass("ItemTest",-0.2f,-0.2f)},
         {"Fruta", new ItemsClass("Fruta",0.15f,0.15f)}, // Aumento 15%
         {"Exercicio", new ItemsClass("Exercicio",0.10f,-0.05f)}, // Aumento 10% Saúde, diminui 5% energia
@@ -117,9 +117,9 @@ public class PlayerHealthEnergy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other) {
         
-        if(itemsDict.ContainsKey(other.gameObject.tag)){
-            currentHealth+=currentHealth*itemsDict[other.gameObject.tag].EffectHealth;
-            currentEnergy+=currentEnergy*itemsDict[other.gameObject.tag].EffectEnergy;
+        if(itemsEffectDict.ContainsKey(other.gameObject.tag)){
+            currentHealth+=currentHealth*itemsEffectDict[other.gameObject.tag].EffectHealth;
+            currentEnergy+=currentEnergy*itemsEffectDict[other.gameObject.tag].EffectEnergy;
 
             Debug.Log("Colisão com item "+other.gameObject.tag);
             Destroy(other.gameObject);

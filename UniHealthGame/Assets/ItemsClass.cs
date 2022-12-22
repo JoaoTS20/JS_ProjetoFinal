@@ -31,7 +31,7 @@ public class ItemsClass
     // Temporary Effect Items Constructor
     public ItemsClass(string tagName, float effectDuration,float effectMoveSpeed,float effectMaxSpeed,float effectJumpSpeed){
         this.tagName=tagName;
-        this.effectApplied=effectApplied;
+        this.effectDuration=effectDuration;
         this.effectMoveSpeed=effectMoveSpeed;
         this.effectMaxSpeed=effectMaxSpeed;
         this.effectJumpSpeed=effectJumpSpeed;

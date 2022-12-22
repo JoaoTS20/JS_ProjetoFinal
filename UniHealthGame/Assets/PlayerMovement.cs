@@ -40,17 +40,11 @@ public class PlayerMovement : MonoBehaviour
     public float currentMaxSpeed;
     public float currentJumpSpeed;
 
+    [Header("Items Boost")]
+    public Dictionary<string,ItemsClass> itemsBoostDict = new Dictionary<string,ItemsClass>(){
+        {"ItemBoostTest", new ItemsClass("ItemBoostTest",8,0.2f,0.2f,0.2f)}
+    };
 
-    [Header("Item Boost Test")]
-    public float effectDuration=4;
-    public float effectTimer=0;
-    public bool effectApplied=false;
-    public float effectMoveSpeed=0.2f;
-    public float effectMaxSpeed= 0.2f;
-    public float effectJumpSpeed= 0.2f;
-
-
-    
 
 
 
@@ -88,37 +82,41 @@ public class PlayerMovement : MonoBehaviour
             jumpTimer = Time.time + jumpDelay;
         }
 
-        if(effectApplied){
-            effectTimer+=Time.deltaTime;
-            if(effectTimer> effectDuration){
-                Debug.Log("Effect End!!");
-                effectApplied=false;
-                effectTimer=0;
+        foreach(string tag in itemsBoostDict.Keys)
+        {
+            if(itemsBoostDict[tag].EffectApplied){
+                itemsBoostDict[tag].EffectTimer+=Time.deltaTime;
+                if(itemsBoostDict[tag].EffectTimer > itemsBoostDict[tag].EffectDuration){
+                    Debug.Log("Effect "+ tag + " End!!");
+                    itemsBoostDict[tag].EffectApplied=false;
+                    itemsBoostDict[tag].EffectTimer=0;
+                    
+                    //TODO: Ver se tirar o boost por percentagem funciona para todas o tipo de velocidades (deve) mas n tem o caso da speed reference mudar durante boost
+                    
+                    // Max Speed
+                    if(((currentMaxSpeed-currentMaxSpeed*itemsBoostDict[tag].EffectMaxSpeed)<referenceMaxSpeed)){
+                        currentMaxSpeed=referenceMaxSpeed;
+                    }
+                    else{
+                        currentMaxSpeed-=currentMaxSpeed*itemsBoostDict[tag].EffectMaxSpeed;
+                    }
 
-                //TODO: Ver se tirar o boost por percentagem funciona para todas o tipo de velocidades (deve) mas n tem o caso da speed reference mudar durante boost
-                
-                // Max Speed
-                if(((currentMaxSpeed-currentMaxSpeed*effectMaxSpeed)<referenceMaxSpeed)){
-                    currentMaxSpeed=referenceMaxSpeed;
-                }
-                else{
-                    currentMaxSpeed-=currentMaxSpeed*effectMaxSpeed;
-                }
+                    // Move Speed
+                    if((currentMoveSpeed-currentMoveSpeed*itemsBoostDict[tag].EffectMoveSpeed)<referenceMoveSpeed){
+                        currentMoveSpeed=referenceMoveSpeed;
+                    }
+                    else{
+                        currentMoveSpeed-=currentMoveSpeed*itemsBoostDict[tag].EffectMoveSpeed;
+                    }
 
-                // Move Speed
-                if((currentMoveSpeed-currentMoveSpeed*effectMoveSpeed)<referenceMoveSpeed){
-                    currentMoveSpeed=referenceMoveSpeed;
-                }
-                else{
-                    currentMoveSpeed-=currentMoveSpeed*effectMoveSpeed;
-                }
-
-                // Jump Speed
-                if((currentJumpSpeed-currentMoveSpeed*effectJumpSpeed)<referenceJumpSpeed){
-                    currentJumpSpeed=referenceJumpSpeed;
-                }
-                else{
-                    currentJumpSpeed-=currentJumpSpeed*effectJumpSpeed;
+                    // Jump Speed
+                    if((currentJumpSpeed-currentJumpSpeed*itemsBoostDict[tag].EffectJumpSpeed)<referenceJumpSpeed){
+                        currentJumpSpeed=referenceJumpSpeed;
+                    }
+                    else{
+                        currentJumpSpeed-=currentJumpSpeed*itemsBoostDict[tag].EffectJumpSpeed;
+                    }
+                    
                 }
             }
         }
@@ -138,6 +136,20 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+
+        if(itemsBoostDict.ContainsKey(other.gameObject.tag)){
+            
+            itemsBoostDict[other.gameObject.tag].EffectApplied=true;
+
+            currentMaxSpeed+=currentMaxSpeed*itemsBoostDict[other.gameObject.tag].EffectMaxSpeed;
+            currentMoveSpeed+=currentMoveSpeed*itemsBoostDict[other.gameObject.tag].EffectMoveSpeed;
+            currentJumpSpeed+=currentJumpSpeed*itemsBoostDict[other.gameObject.tag].EffectJumpSpeed;
+            
+            Debug.Log("Effect Activated!!");
+            Destroy(other.gameObject);
+
+        }
+        /*
         if(other.gameObject.CompareTag("ItemBoostTest")){
             effectApplied=true;
             //TODO; DAR TALVEZ RESTART TIME SE EFEITO JÁ ESTIVER ATIVO?
@@ -147,6 +159,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Effect Activated!!");
             Destroy(other.gameObject);
         }
+        */
     }
 
     public void detectPlayerHorizontalMovement(float horizontalDirection){
