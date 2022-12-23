@@ -115,11 +115,40 @@ public class PlayerHealthEnergy : MonoBehaviour
         }
 
     }
+
+    public bool isHealthy()
+    {
+        if(currentHealth < 50)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other) {
         
         if(itemsEffectDict.ContainsKey(other.gameObject.tag)){
-            currentHealth+=currentHealth*itemsEffectDict[other.gameObject.tag].EffectHealth;
-            currentEnergy+=currentEnergy*itemsEffectDict[other.gameObject.tag].EffectEnergy;
+
+            if (currentHealth + currentHealth* itemsEffectDict[other.gameObject.tag].EffectHealth < 100)
+            {
+                currentHealth += currentHealth * itemsEffectDict[other.gameObject.tag].EffectHealth;
+            }
+            else
+            {
+                currentHealth = 100;
+            }
+
+            if (currentEnergy + currentEnergy * itemsEffectDict[other.gameObject.tag].EffectEnergy < 100)
+            {
+                currentEnergy += currentEnergy * itemsEffectDict[other.gameObject.tag].EffectEnergy;
+            }
+            else
+            {
+                currentEnergy = 100;
+            }
 
             Debug.Log("Colisão com item "+other.gameObject.tag);
             Destroy(other.gameObject);

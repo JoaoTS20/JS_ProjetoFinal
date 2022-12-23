@@ -6,6 +6,14 @@ TagManager:
   tags:
   - ItemTest
   - ItemBoostTest
+  - BebidasEnergeticas
+  - Cafe
+  - FastFood
+  - Fruta
+  - Chocolates
+  - Legumes
+  - Netflix
+  - Exercicio
   layers:
   - Default
   - TransparentFX

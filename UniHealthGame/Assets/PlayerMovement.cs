@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
 
     [Header("Horizontal Movement")]
-    public float normaMoveSpeed=4f;
+    public float normaMoveSpeed = 4f;
+    public float unhealthMoveSpeed = 2f;
     public float referenceMoveSpeed;
     public Vector2 direction;
     public bool rightDirection=true;
@@ -23,15 +24,17 @@ public class PlayerMovement : MonoBehaviour
 
     public float referenceJumpSpeed;
 
-    public float normalJumpSpeed=10f;
-    public float jumpDelay=0.25f;
+    public float normalJumpSpeed = 10f;
+    public float unhealthJumpSpeed = 7f;
+    public float jumpDelay = 0.25f;
     public float jumpTimer;
 
 
     [Header("Physics")]
     public float referenceMaxSpeed;
-    public float normalMaxSpeed= 10f;
-    public float linearDrag=4f;
+    public float normalMaxSpeed = 10f;
+    public float unhealthMaxSpeed = 7f;
+    public float linearDrag = 4f;
     public float gravity = 1f;
     public float fallMultiplier = 5f;
 
@@ -85,7 +88,22 @@ public class PlayerMovement : MonoBehaviour
             jumpTimer = Time.time + jumpDelay;
         }
 
-        foreach(string tag in itemsBoostDict.Keys)
+        // Check State of Health and Change Reference Speeds
+        if (this.gameObject.GetComponent<PlayerHealthEnergy>().isHealthy())
+        {
+            referenceJumpSpeed = normalJumpSpeed;
+            referenceMoveSpeed = normaMoveSpeed;
+            referenceMaxSpeed = normalMaxSpeed;
+
+        }
+        else
+        {
+            referenceJumpSpeed = unhealthJumpSpeed;
+            referenceMoveSpeed = unhealthMoveSpeed;
+            referenceMaxSpeed = unhealthMaxSpeed;
+        }
+
+        foreach (string tag in itemsBoostDict.Keys)
         {
             if(itemsBoostDict[tag].EffectApplied){
                 itemsBoostDict[tag].EffectTimer+=Time.deltaTime;
@@ -124,6 +142,15 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        // Verificar se a Speeds são atualizadas dependendo da vida e se não estiverem sub efeito
+        if(!someEffectApplied() & (currentMoveSpeed!=referenceMoveSpeed || currentMaxSpeed != referenceMaxSpeed || currentJumpSpeed != referenceJumpSpeed))
+        {
+            currentMoveSpeed = referenceMoveSpeed;
+            currentJumpSpeed = referenceJumpSpeed;
+            currentMaxSpeed = referenceMaxSpeed;
+        }
+
+
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         
         detectPlayerHorizontalMovement(direction.x);
@@ -136,6 +163,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         updatePhysics();
+
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -162,6 +190,19 @@ public class PlayerMovement : MonoBehaviour
             Destroy(other.gameObject);
         }
         */
+    }
+
+    private bool someEffectApplied()
+    {
+        foreach (string tag in itemsBoostDict.Keys)
+        {
+            if (itemsBoostDict[tag].EffectApplied)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void detectPlayerHorizontalMovement(float horizontalDirection){
