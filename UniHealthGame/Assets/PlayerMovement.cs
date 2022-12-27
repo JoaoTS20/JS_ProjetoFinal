@@ -112,7 +112,6 @@ public class PlayerMovement : MonoBehaviour
                     itemsBoostDict[tag].EffectApplied=false;
                     itemsBoostDict[tag].EffectTimer=0;
                     
-                    //TODO: Ver se tirar o boost por percentagem funciona para todas o tipo de velocidades (deve) mas n tem o caso da speed reference mudar durante boost
                     
                     // Max Speed
                     if(((currentMaxSpeed-currentMaxSpeed*itemsBoostDict[tag].EffectMaxSpeed)<referenceMaxSpeed)){
@@ -169,7 +168,13 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
 
         if(itemsBoostDict.ContainsKey(other.gameObject.tag)){
-            
+
+            // Restart Timer
+            if (itemsBoostDict[other.gameObject.tag].EffectApplied)
+            {
+                itemsBoostDict[other.gameObject.tag].EffectTimer = 0;
+            }
+
             itemsBoostDict[other.gameObject.tag].EffectApplied=true;
 
             currentMaxSpeed+=currentMaxSpeed*itemsBoostDict[other.gameObject.tag].EffectMaxSpeed;
@@ -179,17 +184,7 @@ public class PlayerMovement : MonoBehaviour
             Destroy(other.gameObject);
 
         }
-        /*
-        if(other.gameObject.CompareTag("ItemBoostTest")){
-            effectApplied=true;
-            //TODO; DAR TALVEZ RESTART TIME SE EFEITO JÁ ESTIVER ATIVO?
-            currentMaxSpeed+=currentMaxSpeed*effectMaxSpeed;
-            currentMoveSpeed+=currentMoveSpeed*effectMoveSpeed;
-
-            Debug.Log("Effect Activated!!");
-            Destroy(other.gameObject);
-        }
-        */
+        
     }
 
     private bool someEffectApplied()
