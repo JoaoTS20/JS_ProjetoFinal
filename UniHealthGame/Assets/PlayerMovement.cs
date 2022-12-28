@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Components")]
     public Rigidbody2D rb;
+    private Animator animator;
     public LayerMask groundLayer;
 
     [Header("Horizontal Movement")]
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         referenceMaxSpeed=normalMaxSpeed;
 
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         groundLayer=LayerMask.GetMask("Ground");
     }
 
@@ -203,6 +205,9 @@ public class PlayerMovement : MonoBehaviour
     public void detectPlayerHorizontalMovement(float horizontalDirection){
         //TODO: Parece estar a funcionar
         if (horizontalDirection != 0){
+
+            animator.SetBool("moving", true);
+
             if(rb.velocity.x==currentMaxSpeed){
                 this.gameObject.GetComponent<PlayerHealthEnergy>().reduceHealthEnergy("Run");
                 Debug.Log("Estou me a mover correr");
@@ -210,6 +215,11 @@ public class PlayerMovement : MonoBehaviour
             else{
                 this.gameObject.GetComponent<PlayerHealthEnergy>().reduceHealthEnergy("Normal");
             }
+        }
+        else
+        {
+            animator.SetBool("moving", false);
+
         }
     }
 
