@@ -158,4 +158,14 @@ public class PlayerHealthEnergy : MonoBehaviour
     {
         return currentHealth <= 0;
     }
+
+    public float getHealth()
+    {
+        return currentHealth;
+    }
+
+    public float getEnergy()
+    {
+        return currentEnergy;
+    }
 }
