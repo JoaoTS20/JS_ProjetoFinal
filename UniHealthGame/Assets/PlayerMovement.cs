@@ -10,6 +10,13 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     public LayerMask groundLayer;
 
+    [Header("Sounds")]
+
+    [SerializeField] private AudioSource catchItemSoundEffect;
+
+    [SerializeField] private AudioSource jumpSoundEffect;
+
+
     [Header("Horizontal Movement")]
     public float normaMoveSpeed = 4f;
     public float unhealthMoveSpeed = 2f;
@@ -160,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
         
         if(jumpTimer > Time.time && onGround){
             Jump();
+            jumpSoundEffect.Play();
             this.gameObject.GetComponent<PlayerHealthEnergy>().reduceHealthEnergy("Jump");
         }
 
@@ -171,6 +179,7 @@ public class PlayerMovement : MonoBehaviour
 
         if(itemsBoostDict.ContainsKey(other.gameObject.tag)){
 
+            catchItemSoundEffect.Play();
             // Restart Timer
             if (itemsBoostDict[other.gameObject.tag].EffectApplied)
             {

@@ -19,7 +19,9 @@ public class PlayerHealthEnergy : MonoBehaviour
     [Header("Energy Bar Variables")]
     public Text energyText;
     public Image energyBar;
-    
+
+    [SerializeField] private AudioSource catchItemSoundEffect;
+
 
 
     [Header("Current Values")]
@@ -131,6 +133,8 @@ public class PlayerHealthEnergy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         
         if(itemsEffectDict.ContainsKey(other.gameObject.tag)){
+
+            catchItemSoundEffect.Play();
 
             if (currentHealth + currentHealth* itemsEffectDict[other.gameObject.tag].EffectHealth < 100)
             {
