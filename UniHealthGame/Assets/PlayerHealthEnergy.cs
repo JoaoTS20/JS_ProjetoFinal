@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerHealthEnergy : MonoBehaviour
 {   
@@ -12,12 +13,12 @@ public class PlayerHealthEnergy : MonoBehaviour
     public float maxEnergy=100f;
 
     [Header("Health Bar Variables")]
-    public Text healthText;
+    public TMP_Text healthText;
     public Image healthBar;
 
 
     [Header("Energy Bar Variables")]
-    public Text energyText;
+    public TMP_Text energyText;
     public Image energyBar;
 
     [SerializeField] private AudioSource catchItemSoundEffect;
@@ -58,8 +59,8 @@ public class PlayerHealthEnergy : MonoBehaviour
 
         energyBar=GameObject.Find("EnergyBar").GetComponent<Image>();
         healthBar=GameObject.Find("HealthBar").GetComponent<Image>();
-        energyText=GameObject.Find("EnergyText").GetComponent<Text>();
-        healthText=GameObject.Find("HealthText").GetComponent<Text>();
+        energyText=GameObject.Find("EnergyTextTMP").GetComponent<TMP_Text>();
+        healthText=GameObject.Find("HealthTextTMP").GetComponent<TMP_Text>();
 
 
 
