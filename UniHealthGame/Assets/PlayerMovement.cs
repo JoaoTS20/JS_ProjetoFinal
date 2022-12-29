@@ -66,9 +66,9 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         Debug.Log("Hello, world!");
-        
+
         //Current Movement Values
-        currentJumpSpeed=normalJumpSpeed;
+        currentJumpSpeed =normalJumpSpeed;
         currentMoveSpeed=normaMoveSpeed;
         currentMaxSpeed=normalMaxSpeed;
 

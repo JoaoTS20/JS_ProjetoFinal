@@ -48,7 +48,7 @@ public class DeathScreen : MonoBehaviour
 
     public void restart()
     {
-        //Bug com o gravity scale
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
