@@ -10,7 +10,7 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
-        pauseMenu = GameObject.Find("Panel");
+        pauseMenu = GameObject.Find("PanelMenu");
         pauseMenu.SetActive(false);
         Cursor.visible = false;
     }

@@ -43,9 +43,9 @@ public class PlayerHealthEnergy : MonoBehaviour
         {"Chocolates", new ItemsClass("Chocolates",0.0f,0.05f)}, // Aumento 5% Energia
         {"Legumes", new ItemsClass("Legumes",0.15f,0.05f)}, // Aumento Saúde 15% e Aumento 5% Energia 
         {"FastFood", new ItemsClass("FastFood",-0.20f,-0.10f)}, // Diminui Saúde 20% e Diminui 10% Energia 
-        {"Alcool", new ItemsClass("Alcool",-0.10f,0.5f)}, // Diminui Saúde 20% e Diminui 10% Energia 
-        {"BebidaEnergetica", new ItemsClass("BebidaEnergetica",-0.25f,0.20f)}, // Diminui Saúde 25% e Aumenta 30% Energia 
-        {"Cafe", new ItemsClass("Cafe",0.0f,0.20f)}, // Aumenta 10% Energia 
+        {"Alcool", new ItemsClass("Alcool",-0.10f,0.5f)}, // Diminui Saúde 10% e Aumenta 5% Energia 
+        {"BebidaEnergetica", new ItemsClass("BebidaEnergetica",-0.25f,0.20f)}, // Diminui Saúde 25% e Aumenta 20% Energia 
+        {"Cafe", new ItemsClass("Cafe",0.0f,0.20f)}, // Aumenta 20% Energia 
         {"Netflix", new ItemsClass("Netflix",0.0f,-0.10f)}, // Diminui 10% Energia 
 
     };
@@ -121,14 +121,7 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     public bool isHealthy()
     {
-        if(currentHealth < 50)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return currentHealth < 50; 
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -159,20 +152,10 @@ public class PlayerHealthEnergy : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        /**
-        if(other.gameObject.CompareTag("ItemTest")){
-            
-            if(currentEnergy<=0){
-                currentHealth-=20;
-            }
-            else{
-                currentEnergy-=20;
-            }
-
-            Debug.Log("Colisão e tirei vida");
-            Destroy(other.gameObject);
-        }
-        */
     }
-    //TODO: Adicionar diferentes tipos de tag para os items a colidir e planear os valores a tirar/aumetar
+
+    public bool isDead()
+    {
+        return currentHealth <= 0;
+    }
 }
