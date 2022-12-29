@@ -121,7 +121,7 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     public bool isHealthy()
     {
-        return currentHealth < 50; 
+        return currentHealth > 50; 
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
