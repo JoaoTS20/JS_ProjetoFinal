@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public GameObject followObject;
-    public Vector2 followOffset;
-    public float speed = 3f;
-    private Vector2 threshold;
-    private Rigidbody2D rb;
+    [SerializeField] private GameObject followObject;
+    [SerializeField] private Vector2 followOffset;
+    [SerializeField] private float speed = 3f;
+    [SerializeField] private Vector2 threshold;
+    [SerializeField] private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()

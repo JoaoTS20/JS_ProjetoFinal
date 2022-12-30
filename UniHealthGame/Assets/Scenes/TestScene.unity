@@ -966,6 +966,8 @@ MonoBehaviour:
   followObject: {fileID: 1239833431}
   followOffset: {x: 2.5, y: 2.5}
   speed: 3
+  threshold: {x: 0, y: 0}
+  rb: {fileID: 0}
 --- !u!1 &630343129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,9 +1153,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DeathScreen, Assembly-CSharp
-        m_MethodName: restart
+      - m_Target: {fileID: 2095932597}
+        m_TargetAssemblyTypeName: EndLevelScreen, Assembly-CSharp
+        m_MethodName: nextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1645,8 +1647,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1aff5f5d6924454893eee8e4fcf79a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathScreen: {fileID: 0}
-  player: {fileID: 0}
   deathSoundEffect: {fileID: 988937232}
 --- !u!114 &988937234
 MonoBehaviour:
@@ -6958,10 +6958,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300bf789871fe4b10ba865b32f540091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
   catchItemSoundEffect: {fileID: 1239833439}
   jumpSoundEffect: {fileID: 1239833440}
   normaMoveSpeed: 4
@@ -6975,8 +6971,6 @@ MonoBehaviour:
   referenceJumpSpeed: 0
   normalJumpSpeed: 10
   unhealthJumpSpeed: 7
-  jumpDelay: 0.25
-  jumpTimer: 0
   referenceMaxSpeed: 0
   normalMaxSpeed: 10
   unhealthMaxSpeed: 7
@@ -6998,12 +6992,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab5f066c7935d4d86a4d64c9c5a4cef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  maxEnergy: 100
-  healthText: {fileID: 0}
-  healthBar: {fileID: 0}
-  energyText: {fileID: 0}
-  energyBar: {fileID: 0}
   catchItemSoundEffect: {fileID: 1239833439}
   currentHealth: 100
   currentEnergy: 100
@@ -7336,7 +7324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a70f0c5109cf4c168299a8591079228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 0}
 --- !u!1 &1363892375
 GameObject:
   m_ObjectHideFlags: 0
@@ -7750,8 +7737,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundMusicHealthy: {fileID: 1486050739}
+  playingHealthy: 0
   backgroundMusicUnhealthy: {fileID: 1486050742}
-  player: {fileID: 0}
+  playingUnhealthy: 0
 --- !u!82 &1486050742
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10426,9 +10414,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498b489e6339f49da9b0b2c0b970a49c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endLevelScreen: {fileID: 0}
-  player: {fileID: 0}
-  pontuationTextTMP: {fileID: 0}
   endLevelEffect: {fileID: 2095932598}
 --- !u!82 &2095932598
 AudioSource:

@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class BackgroundMusic : MonoBehaviour
 {
+    [Header("Healthy Background")]
     [SerializeField] private AudioSource backgroundMusicHealthy;
 
-    private bool playingHealthy;
+    [SerializeField] private bool playingHealthy;
 
+    [Header("Unhealthy Background")]
     [SerializeField] private AudioSource backgroundMusicUnhealthy;
 
-    public GameObject player;
+    [SerializeField] private bool playingUnhealthy;
 
-    private bool playingUnhealthy;
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start()

@@ -6,13 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class EndLevelScreen : MonoBehaviour
 {
-    public GameObject endLevelScreen;
+    private GameObject endLevelScreen;
 
-    public GameObject player;
+    private GameObject player;
 
-    public TMP_Text pontuationTextTMP;
-
-
+    private TMP_Text pontuationTextTMP;
 
     [SerializeField] private AudioSource endLevelEffect;
 
@@ -32,21 +30,7 @@ public class EndLevelScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       /**
-       if (player.GetComponent<PlayerHealthEnergy>().isDead())
-        {
-            
-            if (!soundPlayed)
-            {
-                deathSoundEffect.Play();
-                soundPlayed = true;
-            }
-            
-            Time.timeScale = 0f;
-            deathScreen.SetActive(true);
-            Cursor.visible = true;
-        }
-       **/
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -69,7 +53,6 @@ public class EndLevelScreen : MonoBehaviour
 
         return ((health * 0.55f) + (energy * 0.45f))*0.2f;
 
-        
     }
 
     public void prepareEndLevelScreen()
@@ -79,19 +62,25 @@ public class EndLevelScreen : MonoBehaviour
         if (score >= 9.5)
         {
             pontuationTextTMP.text = "Pontuation:\n" + score.ToString("N1") + "\n\n Success!";
-            pontuationTextTMP.color = Color.green;//new Color(147, 212, 0,255); //green
+            pontuationTextTMP.color = Color.green;
         }
         else
         {
             pontuationTextTMP.text = "Pontuation:\n" + score.ToString("N1") + "\n\n Failed!";
-            pontuationTextTMP.color = Color.red; //red
+            pontuationTextTMP.color = Color.red;
 
         }
     }
 
     public void nextLevel()
     {
-        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if(SceneManager.GetActiveScene().buildIndex + 1 >= SceneManager.sceneCountInBuildSettings-1)
+        {
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 }

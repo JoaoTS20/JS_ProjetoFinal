@@ -6,53 +6,51 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [Header("Components")]
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
     private Animator animator;
-    public LayerMask groundLayer;
+    private LayerMask groundLayer;
 
-    [Header("Sounds")]
-
+    [Header("Sounds Effects")]
     [SerializeField] private AudioSource catchItemSoundEffect;
-
     [SerializeField] private AudioSource jumpSoundEffect;
 
 
     [Header("Horizontal Movement")]
-    public float normaMoveSpeed = 4f;
-    public float unhealthMoveSpeed = 2f;
-    public float referenceMoveSpeed;
-    public Vector2 direction;
-    public bool rightDirection=true;
+    [SerializeField] private float normaMoveSpeed = 4f;
+    [SerializeField] private float unhealthMoveSpeed = 2f;
+    [SerializeField] private float referenceMoveSpeed;
+    [SerializeField] private Vector2 direction;
+    [SerializeField] private bool rightDirection=true;
 
 
     [Header("Vertical Movement")]
-    public bool onGround=false;
-    public float groundLength = 0.981f; 
-    public Vector3 colliderOffset;
+    [SerializeField] private bool onGround=false;
+    [SerializeField] private float groundLength = 0.981f;
+    [SerializeField] private Vector3 colliderOffset;
 
-    public float referenceJumpSpeed;
+    [SerializeField] private float referenceJumpSpeed;
 
-    public float normalJumpSpeed = 10f;
-    public float unhealthJumpSpeed = 7f;
-    public float jumpDelay = 0.25f;
-    public float jumpTimer;
+    [SerializeField] private float normalJumpSpeed = 10f;
+    [SerializeField] private float unhealthJumpSpeed = 7f;
+    private float jumpDelay = 0.25f;
+    private float jumpTimer;
 
 
     [Header("Physics")]
-    public float referenceMaxSpeed;
-    public float normalMaxSpeed = 10f;
-    public float unhealthMaxSpeed = 7f;
-    public float linearDrag = 4f;
-    public float gravity = 1f;
-    public float fallMultiplier = 5f;
+    [SerializeField] private float referenceMaxSpeed;
+    [SerializeField] private float normalMaxSpeed = 10f;
+    [SerializeField] private float unhealthMaxSpeed = 7f;
+    [SerializeField] private float linearDrag = 4f;
+    [SerializeField] private float gravity = 1f;
+    [SerializeField] private float fallMultiplier = 5f;
 
     [Header("Current Movement Values")]
-    public float currentMoveSpeed;
-    public float currentMaxSpeed;
-    public float currentJumpSpeed;
+    [SerializeField] private float currentMoveSpeed;
+    [SerializeField] private float currentMaxSpeed;
+    [SerializeField] private float currentJumpSpeed;
 
     [Header("Items Boost")]
-    public Dictionary<string,ItemsClass> itemsBoostDict = new Dictionary<string,ItemsClass>(){
+    private Dictionary<string,ItemsClass> itemsBoostDict = new Dictionary<string,ItemsClass>(){
         {"ItemBoostTest", new ItemsClass("ItemBoostTest",4,0.2f,0.2f,0.2f)},
         {"BebidasEnergéticas", new ItemsClass("BebidasEnergéticas",6,0.5f,0.5f,0.5f)},
         {"Cafe", new ItemsClass("Cafe",5,0.2f,0.2f,0.2f)},
@@ -65,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        Debug.Log("Hello, world!");
+        Debug.Log("Start");
 
         //Current Movement Values
         currentJumpSpeed =normalJumpSpeed;
@@ -89,10 +87,6 @@ public class PlayerMovement : MonoBehaviour
 
         onGround = Physics2D.Raycast(transform.position + colliderOffset, Vector2.down, groundLength, groundLayer) || Physics2D.Raycast(transform.position - colliderOffset, Vector2.down, groundLength, groundLayer);
         
-        if(!wasOnGround && onGround){
-            //StartCoroutine(JumpSqueeze(1.25f, 0.8f, 0.05f));
-        }
-
         if(Input.GetButtonDown("Jump")){
             jumpTimer = Time.time + jumpDelay;
         }
@@ -212,7 +206,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void detectPlayerHorizontalMovement(float horizontalDirection){
-        //TODO: Parece estar a funcionar
         if (horizontalDirection != 0){
 
             animator.SetBool("moving", true);
@@ -244,7 +237,6 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * currentMaxSpeed, rb.velocity.y);
         }
         
-        ///animator.SetFloat("horizontal", Mathf.Abs(rb.velocity.x));
     }
 
     void updatePhysics(){
@@ -272,7 +264,6 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.AddForce(Vector2.up * currentJumpSpeed, ForceMode2D.Impulse);
         jumpTimer = 0;
-        //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
     }
     public void Flip(){
         rightDirection = !rightDirection;

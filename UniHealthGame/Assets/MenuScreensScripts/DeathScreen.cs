@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class DeathScreen : MonoBehaviour
 {
-    public GameObject deathScreen;
+    private GameObject deathScreen;
 
-    public GameObject player;
+    private GameObject player;
 
     private bool soundPlayed=false;
 

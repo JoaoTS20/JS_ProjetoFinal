@@ -9,34 +9,34 @@ public class PlayerHealthEnergy : MonoBehaviour
     private float lerpspeed;
 
     [Header("Max Values")]
-    public float maxHealth=100f;
-    public float maxEnergy=100f;
+    private float maxHealth=100f;
+    private float maxEnergy=100f;
 
     [Header("Health Bar Variables")]
-    public TMP_Text healthText;
-    public Image healthBar;
+    private TMP_Text healthText;
+    private Image healthBar;
 
 
     [Header("Energy Bar Variables")]
-    public TMP_Text energyText;
-    public Image energyBar;
+    private TMP_Text energyText;
+    private Image energyBar;
 
+    [Header("Sound Effects")]
     [SerializeField] private AudioSource catchItemSoundEffect;
 
-
-
     [Header("Current Values")]
-    public float currentHealth=100f;
-    public float currentEnergy=100f;
+    [SerializeField] private float currentHealth=100f;
+    [SerializeField] private float currentEnergy=100f;
     
     [Header("Movement Reduction Values")]
+
     //TODO: Acertar Melhor Valores
-    public float normalReduction=0.01f;
-    public float jumpReduction=0.2f;
-    public float runReduction=0.02f;
+    [SerializeField] private float normalReduction=0.01f;
+    [SerializeField] private float jumpReduction=0.2f;
+    [SerializeField] private float runReduction=0.02f;
 
     [Header("Items Effect")]
-    public Dictionary<string,ItemsClass> itemsEffectDict = new Dictionary<string,ItemsClass>(){
+    private Dictionary<string,ItemsClass> itemsEffectDict = new Dictionary<string,ItemsClass>(){
         {"ItemTest", new ItemsClass("ItemTest",-0.2f,-0.2f)},
         {"Fruta", new ItemsClass("Fruta",0.15f,0.15f)}, // Aumento 15%
         {"Exercicio", new ItemsClass("Exercicio",0.10f,-0.05f)}, // Aumento 10% Saúde, diminui 5% energia
@@ -62,9 +62,6 @@ public class PlayerHealthEnergy : MonoBehaviour
         energyText=GameObject.Find("EnergyTextTMP").GetComponent<TMP_Text>();
         healthText=GameObject.Find("HealthTextTMP").GetComponent<TMP_Text>();
 
-
-
-        //TODO ver melhor forma de obter valores
     }
 
     // Update is called once per frame
@@ -89,7 +86,7 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     }
 
-    public void updateBars(){
+    private void updateBars(){
         healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount,currentHealth/maxHealth,lerpspeed);
         energyBar.fillAmount = Mathf.Lerp(energyBar.fillAmount,currentEnergy/maxEnergy,lerpspeed); 
         

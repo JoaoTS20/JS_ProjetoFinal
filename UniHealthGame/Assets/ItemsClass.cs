@@ -48,7 +48,6 @@ public class ItemsClass
     public float EffectEnergy{
         get {return effectEnergy;}
     }
-    //
 
     public float EffectMoveSpeed{
         get {return effectMoveSpeed;}
@@ -62,8 +61,6 @@ public class ItemsClass
         get {return effectJumpSpeed;}
     }
 
-
-    //
     public float EffectTimer{
         get {return effectTimer;}
         set {effectTimer = value;}
