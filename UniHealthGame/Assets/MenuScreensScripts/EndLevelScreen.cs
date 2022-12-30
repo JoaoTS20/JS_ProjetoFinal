@@ -11,6 +11,7 @@ public class EndLevelScreen : MonoBehaviour
     private GameObject player;
 
     private TMP_Text pontuationTextTMP;
+    private TMP_Text continueTextTMP;
 
     [SerializeField] private AudioSource endLevelEffect;
 
@@ -20,6 +21,7 @@ public class EndLevelScreen : MonoBehaviour
         Cursor.visible = false;
         endLevelScreen = GameObject.Find("PanelEndLevel");
         pontuationTextTMP= GameObject.Find("PontuationTextTMP").GetComponent<TMP_Text>();
+        continueTextTMP=GameObject.Find("ContinueTextTMP").GetComponent<TMP_Text>();
         endLevelScreen.SetActive(false);
 
         player = GameObject.Find("Player");
@@ -66,6 +68,7 @@ public class EndLevelScreen : MonoBehaviour
         }
         else
         {
+            continueTextTMP.text = "Restart";
             pontuationTextTMP.text = "Pontuation:\n" + score.ToString("N1") + "\n\n Failed!";
             pontuationTextTMP.color = Color.red;
 
@@ -74,13 +77,22 @@ public class EndLevelScreen : MonoBehaviour
 
     public void nextLevel()
     {
-        if(SceneManager.GetActiveScene().buildIndex + 1 >= SceneManager.sceneCountInBuildSettings-1)
+        if (calculateScore() >= 9.5)
         {
-            SceneManager.LoadScene(0);
+            if (SceneManager.GetActiveScene().buildIndex + 1 >= SceneManager.sceneCountInBuildSettings - 1)
+            {
+                SceneManager.LoadScene(0);
+            }
+            else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
     }
 }
