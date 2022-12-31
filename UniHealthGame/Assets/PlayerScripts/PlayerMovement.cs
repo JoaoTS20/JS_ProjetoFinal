@@ -16,30 +16,32 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Horizontal Movement")]
-    [SerializeField] private float normaMoveSpeed = 4f;
-    [SerializeField] private float unhealthMoveSpeed = 2f;
+    [SerializeField] private float normaMoveSpeed = 10f;
+    [SerializeField] private float unhealthMoveSpeed = 7f;
     [SerializeField] private float referenceMoveSpeed;
     [SerializeField] private Vector2 direction;
     [SerializeField] private bool rightDirection=true;
 
 
     [Header("Vertical Movement")]
+    [SerializeField] private float referenceJumpSpeed;
+    [SerializeField] private float normalJumpSpeed = 10f;
+    [SerializeField] private float unhealthJumpSpeed = 8f;
+
     [SerializeField] private bool onGround=false;
-    [SerializeField] private float groundLength = 0.981f;
+    [SerializeField] private float groundLength = 0.11f;//0.981f;
     [SerializeField] private Vector3 colliderOffset;
 
-    [SerializeField] private float referenceJumpSpeed;
 
-    [SerializeField] private float normalJumpSpeed = 10f;
-    [SerializeField] private float unhealthJumpSpeed = 7f;
+
     private float jumpDelay = 0.25f;
     private float jumpTimer;
 
 
     [Header("Physics")]
     [SerializeField] private float referenceMaxSpeed;
-    [SerializeField] private float normalMaxSpeed = 10f;
-    [SerializeField] private float unhealthMaxSpeed = 7f;
+    [SerializeField] private float normalMaxSpeed = 8f;
+    [SerializeField] private float unhealthMaxSpeed = 6f;
     [SerializeField] private float linearDrag = 4f;
     [SerializeField] private float gravity = 1f;
     [SerializeField] private float fallMultiplier = 5f;
@@ -48,6 +50,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float currentMoveSpeed;
     [SerializeField] private float currentMaxSpeed;
     [SerializeField] private float currentJumpSpeed;
+
+    [Header("Player Velocity")]
+    [SerializeField] private float horizontalVelocity;
+    [SerializeField] private float verticalVelocity;
 
     [Header("Items Boost")]
     private Dictionary<string,ItemsClass> itemsBoostDict = new Dictionary<string,ItemsClass>(){
@@ -154,18 +160,26 @@ public class PlayerMovement : MonoBehaviour
 
 
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        
         detectPlayerHorizontalMovement(direction.x);
-        
+
+    }
+
+    private void FixedUpdate()
+    {
+
         moveCharacter(direction.x);
-        
-        if(jumpTimer > Time.time && onGround){
+
+        if (jumpTimer > Time.time && onGround)
+        {
             Jump();
             jumpSoundEffect.Play();
             this.gameObject.GetComponent<PlayerHealthEnergy>().reduceHealthEnergy("Jump");
         }
 
         updatePhysics();
+
+        horizontalVelocity = rb.velocity.x;
+        verticalVelocity = rb.velocity.y;
 
     }
 
@@ -248,12 +262,14 @@ public class PlayerMovement : MonoBehaviour
                 rb.drag = 0f;
             }
             rb.gravityScale=0;
-        } else{
+        }
+        else{
             rb.gravityScale = gravity;
             rb.drag = linearDrag * 0.15f;
             if(rb.velocity.y < 0){
                 rb.gravityScale = gravity * fallMultiplier;
-            }else if(rb.velocity.y > 0 && !Input.GetButton("Jump")){
+            }
+            else if(rb.velocity.y > 0 && !Input.GetButton("Jump")){
                 rb.gravityScale = gravity * (fallMultiplier / 2);
             }
         }
