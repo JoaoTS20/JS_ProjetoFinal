@@ -10,11 +10,11 @@ TagManager:
   - Cafe
   - FastFood
   - Fruta
-  - Chocolates
   - Legumes
   - Netflix
   - Exercicio
   - Alcool
+  - Doces
   layers:
   - Default
   - TransparentFX
