@@ -220,7 +220,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void detectPlayerHorizontalMovement(float horizontalDirection){
-        if (horizontalDirection != 0){
+        if (horizontalDirection != 0 & Time.timeScale!=0f)
+        {
 
             animator.SetBool("moving", true);
 
