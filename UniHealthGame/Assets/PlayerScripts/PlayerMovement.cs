@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -65,6 +66,17 @@ public class PlayerMovement : MonoBehaviour
 
     };
 
+    private Dictionary<string, string> itemsEffectRealNames = new Dictionary<string, string>()
+    {
+        {"Exercicio","Exercício"},
+        {"Alcool","Álcool"},
+        {"BebidasEnergeticas","Bebida Energética"},
+        {"Cafe","Café"},
+        {"FastFood","Fast Food"},
+
+    };
+
+    private TMP_Text effectText;
 
     // Start is called before the first frame update
     private void Start()
@@ -84,6 +96,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         groundLayer=LayerMask.GetMask("Ground");
+        effectText = GameObject.Find("EffectTextTMP").GetComponent<TMP_Text>();
+        effectText.enabled = false;
     }
 
     // Update is called once per frame
@@ -202,6 +216,9 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Colisão com item " + other.gameObject.tag + "Effect Activated!!");
             Destroy(other.gameObject);
 
+            activateEffectText(other.gameObject.tag);
+            Invoke("disableEffectText", 1.5f);
+
         }
         
     }
@@ -282,9 +299,31 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(Vector2.up * currentJumpSpeed, ForceMode2D.Impulse);
         jumpTimer = 0;
     }
+
     public void Flip(){
         rightDirection = !rightDirection;
         transform.rotation = Quaternion.Euler(0, rightDirection ? 0 : 180, 0);
+    }
+
+    public void disableEffectText()
+    {
+        effectText.text = "";
+        effectText.enabled = false;
+
+    }
+
+    public void activateEffectText(string effect)
+    {
+        effectText.enabled = true;
+
+        if (itemsEffectRealNames.ContainsKey(effect))
+        {
+            effectText.text = itemsEffectRealNames[effect] + "\n Effect Activated!";
+        }
+        else
+        {
+            effectText.text = effect + "\n Effect Activated!";
+        }
     }
 
 }

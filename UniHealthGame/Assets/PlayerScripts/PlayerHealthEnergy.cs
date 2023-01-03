@@ -27,9 +27,10 @@ public class PlayerHealthEnergy : MonoBehaviour
     [Header("Current Values")]
     [SerializeField] private float currentHealth=100f;
     [SerializeField] private float currentEnergy=100f;
-    
-    [Header("Movement Reduction Values")]
 
+    private TMP_Text effectText;
+
+    [Header("Movement Reduction Values")]
     //TODO: Acertar Melhor Valores
     [SerializeField] private float normalReduction=0.1f;
     [SerializeField] private float jumpReduction=0.15f;
@@ -50,6 +51,16 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     };
 
+    private Dictionary<string, string> itemsEffectRealNames = new Dictionary<string, string>()
+    {
+        {"Exercicio","Exercício"},
+        {"Alcool","Álcool"},
+        {"BebidasEnergeticas","Bebida Energética"},
+        {"Cafe","Café"},
+        {"FastFood","Fast Food"},
+        
+    };
+
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +72,8 @@ public class PlayerHealthEnergy : MonoBehaviour
         healthBar=GameObject.Find("HealthBar").GetComponent<Image>();
         energyText=GameObject.Find("EnergyTextTMP").GetComponent<TMP_Text>();
         healthText=GameObject.Find("HealthTextTMP").GetComponent<TMP_Text>();
+        effectText= GameObject.Find("EffectTextTMP").GetComponent<TMP_Text>();
+        effectText.enabled = false;
 
     }
 
@@ -147,6 +160,9 @@ public class PlayerHealthEnergy : MonoBehaviour
 
             Debug.Log("Colisão com item "+other.gameObject.tag);
             Destroy(other.gameObject);
+
+            activateEffectText(other.gameObject.tag);
+            Invoke("disableEffectText", 1.5f);
         }
 
     }
@@ -164,5 +180,25 @@ public class PlayerHealthEnergy : MonoBehaviour
     public float getEnergy()
     {
         return currentEnergy;
+    }
+
+    public void disableEffectText()
+    {
+        effectText.text = "";
+        effectText.enabled = false;
+
+    }
+
+    public void activateEffectText(string effect)
+    {
+        effectText.enabled = true;
+
+        if (itemsEffectRealNames.ContainsKey(effect)){
+            effectText.text = itemsEffectRealNames[effect] + "\n Effect Activated!";
+        }
+        else
+        {
+            effectText.text = effect + "\n Effect Activated!";
+        }
     }
 }
