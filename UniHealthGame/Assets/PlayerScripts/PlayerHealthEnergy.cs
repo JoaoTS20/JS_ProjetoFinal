@@ -23,6 +23,7 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     [Header("Sound Effects")]
     [SerializeField] private AudioSource catchItemSoundEffect;
+    
 
     [Header("Current Values")]
     [SerializeField] private float currentHealth=100f;
@@ -91,8 +92,8 @@ public class PlayerHealthEnergy : MonoBehaviour
         }
 
         //Update Text
-        healthText.text = "Health: " + currentHealth.ToString("N2") + "%";
-        energyText.text = "Energy: " + currentEnergy.ToString("N2") + "%";
+        healthText.text = "Health: " + currentHealth.ToString("N0") + "%";
+        energyText.text = "Energy: " + currentEnergy.ToString("N0") + "%";
 
         //Update Bars
         updateBars();

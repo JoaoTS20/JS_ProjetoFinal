@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sounds Effects")]
     [SerializeField] private AudioSource catchItemSoundEffect;
     [SerializeField] private AudioSource jumpSoundEffect;
+    [SerializeField] private AudioSource comicSoundEffect;
+    private bool comicPlaying;
 
 
     [Header("Horizontal Movement")]
@@ -239,6 +241,12 @@ public class PlayerMovement : MonoBehaviour
     public void detectPlayerHorizontalMovement(float horizontalDirection){
         if (horizontalDirection != 0 & Time.timeScale!=0f)
         {
+            //TODO: TESTAR!!!!!!!!!
+            if (!this.gameObject.GetComponent<PlayerHealthEnergy>().isHealthy())
+            {
+               comicSoundEffect.Play();
+
+            }
 
             animator.SetBool("moving", true);
 
@@ -258,7 +266,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void moveCharacter(float horizontalDirection){
-        
+
         rb.AddForce(Vector2.right * horizontalDirection * currentMoveSpeed);
 
         if((horizontalDirection > 0 && !rightDirection) || (horizontalDirection < 0 && rightDirection)){
