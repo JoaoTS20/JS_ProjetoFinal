@@ -24090,9 +24090,9 @@ MonoBehaviour:
   catchItemSoundEffect: {fileID: 1239833439}
   currentHealth: 100
   currentEnergy: 100
-  normalReduction: 0.05
+  normalReduction: 0.04
   jumpReduction: 0.15
-  runReduction: 0.075
+  runReduction: 0.065
 --- !u!95 &1239833438
 Animator:
   serializedVersion: 4

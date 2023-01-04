@@ -33,9 +33,9 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     [Header("Movement Reduction Values")]
     //TODO: Acertar Melhor Valores
-    [SerializeField] private float normalReduction=0.05f;
+    [SerializeField] private float normalReduction=0.04f;
     [SerializeField] private float jumpReduction=0.15f;
-    [SerializeField] private float runReduction=0.075f;
+    [SerializeField] private float runReduction=0.065f;
 
     [Header("Items Effect")]
     private Dictionary<string,ItemsClass> itemsEffectDict = new Dictionary<string,ItemsClass>(){
