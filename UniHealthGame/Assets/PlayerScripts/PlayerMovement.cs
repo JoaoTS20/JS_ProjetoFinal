@@ -28,8 +28,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Vertical Movement")]
     [SerializeField] private float referenceJumpSpeed;
-    [SerializeField] private float normalJumpSpeed = 10f;
-    [SerializeField] private float unhealthJumpSpeed = 8f;
+    [SerializeField] private float normalJumpSpeed = 11f;
+    [SerializeField] private float unhealthJumpSpeed = 10f;
 
     [SerializeField] private bool onGround=false;
     [SerializeField] private float groundLength = 0.11f;//0.981f;
