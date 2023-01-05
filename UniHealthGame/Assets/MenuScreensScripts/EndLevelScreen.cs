@@ -79,7 +79,7 @@ public class EndLevelScreen : MonoBehaviour
     {
         if (calculateScore() >= 9.5)
         {
-            if (SceneManager.GetActiveScene().buildIndex + 1 >= SceneManager.sceneCountInBuildSettings - 1)
+            if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
             {
                 SceneManager.LoadScene(0);
             }
