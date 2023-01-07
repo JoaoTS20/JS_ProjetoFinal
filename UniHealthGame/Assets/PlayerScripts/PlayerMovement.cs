@@ -77,6 +77,13 @@ public class PlayerMovement : MonoBehaviour
 
     private TMP_Text effectText;
 
+    [Header("Drunk Effect")]
+    [SerializeField] private bool isDrunk = false;
+    [SerializeField] private int numberOfAlcohol = 0;
+    [SerializeField] private float drunkDuration = 3f;
+    [SerializeField] private float drunkTimer = 0;
+    [SerializeField] private AudioSource drunkSoundEffect;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -163,6 +170,17 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (isDrunk)
+        {
+            drunkTimer += Time.deltaTime;
+            if (drunkTimer > drunkDuration)
+            {
+                isDrunk = false;
+                numberOfAlcohol = 0;
+                drunkTimer = 0;
+            }
+        }
+
         // Verificar se a Speeds são atualizadas dependendo da vida e se não estiverem sub efeito
         if(!someEffectApplied() & (currentMoveSpeed!=referenceMoveSpeed || currentMaxSpeed != referenceMaxSpeed || currentJumpSpeed != referenceJumpSpeed))
         {
@@ -184,9 +202,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (jumpTimer > Time.time && onGround)
         {
-            Jump();
-            jumpSoundEffect.Play();
-            this.gameObject.GetComponent<PlayerHealthEnergy>().reduceHealthEnergy("Jump");
+            if (!isDrunk)
+            {
+                Jump();
+                jumpSoundEffect.Play();
+                this.gameObject.GetComponent<PlayerHealthEnergy>().reduceHealthEnergy("Jump");
+            }
+
         }
 
         updatePhysics();
@@ -198,9 +220,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
 
-        if(itemsBoostDict.ContainsKey(other.gameObject.tag)){
+
+        if (other.gameObject.tag == "Alcool")
+        {
+            numberOfAlcohol += 1;
+            if (numberOfAlcohol == 2)
+            {
+                isDrunk = true;
+                drunkSoundEffect.Play();
+            }
+        }
+
+        if (itemsBoostDict.ContainsKey(other.gameObject.tag)){
 
             catchItemSoundEffect.Play();
+
             // Restart Timer
             if (itemsBoostDict[other.gameObject.tag].EffectApplied)
             {
@@ -212,7 +246,9 @@ public class PlayerMovement : MonoBehaviour
             currentMaxSpeed+=currentMaxSpeed*itemsBoostDict[other.gameObject.tag].EffectMaxSpeed;
             currentMoveSpeed+=currentMoveSpeed*itemsBoostDict[other.gameObject.tag].EffectMoveSpeed;
             currentJumpSpeed+=currentJumpSpeed*itemsBoostDict[other.gameObject.tag].EffectJumpSpeed;
+
             Debug.Log("Colisão com item " + other.gameObject.tag + "Effect Activated!!");
+
             Destroy(other.gameObject);
 
             activateEffectText(other.gameObject.tag);
@@ -263,6 +299,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void moveCharacter(float horizontalDirection){
+
+        if (isDrunk)
+        {
+            horizontalDirection = -horizontalDirection;
+        }
 
         rb.AddForce(Vector2.right * horizontalDirection * currentMoveSpeed);
 
