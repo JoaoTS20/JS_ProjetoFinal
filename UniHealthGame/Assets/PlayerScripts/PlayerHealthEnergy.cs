@@ -39,7 +39,6 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     [Header("Items Effect")]
     private Dictionary<string,ItemsClass> itemsEffectDict = new Dictionary<string,ItemsClass>(){
-        {"ItemTest", new ItemsClass("ItemTest",-0.2f,-0.2f)},
         {"Fruta", new ItemsClass("Fruta",0.15f,0.15f)}, // Aumento 15%
         {"Exercicio", new ItemsClass("Exercicio",0.10f,-0.05f)}, // Aumento 10% Saúde, diminui 5% energia
         {"Doces", new ItemsClass("Chocolates",0.0f,0.05f)}, // Aumento 5% Energia
@@ -54,10 +53,13 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     private Dictionary<string, string> itemsEffectRealNames = new Dictionary<string, string>()
     {
-        {"Exercicio","Exercício"},
-        {"Alcool","Álcool"},
-        {"BebidasEnergeticas","Bebida Energética"},
-        {"Cafe","Café"},
+        {"Exercicio","Exercice"},
+        {"Alcool","Alcohol"},
+        {"BebidasEnergeticas","Energy Drink"},
+        {"Cafe","Coffee"},
+        {"Legumes","Vegetable"},
+        {"Fruta","Fruit"},
+        {"Doces","Candy"},
         {"FastFood","Fast Food"},
         
     };

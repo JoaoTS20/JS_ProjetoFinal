@@ -60,7 +60,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Items Boost")]
     private Dictionary<string,ItemsClass> itemsBoostDict = new Dictionary<string,ItemsClass>(){
-        {"ItemBoostTest", new ItemsClass("ItemBoostTest",4,0.2f,0.2f,0.2f)},
         {"BebidasEnergeticas", new ItemsClass("BebidasEnergéticas",6,0.5f,0.5f,0.5f)},
         {"Cafe", new ItemsClass("Cafe",5,0.2f,0.2f,0.2f)},
         {"Exercicio", new ItemsClass("Exercicio",5,0.2f,0.1f,0.1f)},
@@ -70,12 +69,10 @@ public class PlayerMovement : MonoBehaviour
 
     private Dictionary<string, string> itemsEffectRealNames = new Dictionary<string, string>()
     {
-        {"Exercicio","Exercício"},
-        {"Alcool","Álcool"},
-        {"BebidasEnergeticas","Bebida Energética"},
-        {"Cafe","Café"},
-        {"FastFood","Fast Food"},
-
+        {"Exercicio","Exercice"},
+        {"BebidasEnergeticas","Energy Drink"},
+        {"Cafe","Coffee"},
+        {"FastFood","Fast Food"}
     };
 
     private TMP_Text effectText;

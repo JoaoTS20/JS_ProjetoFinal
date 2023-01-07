@@ -316,18 +316,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "UniHealthGame \xE9 um jogo de plataforma 2D, que segue a vida de um novo
-    aluno da Universidade de Aveiro.\\nCada n\xEDvel/etapa acad\xE9mica ir\xE1 concluir
-    na realiza\xE7\xE3o de um exame ou entrega de um trabalho. Ir\xE1s ajudar o Henrique
-    a percorrer e ultrapassar as diferentes etapas acad\xE9micas e ao mesmo tempo
-    tomar decis\xF5es sobre op\xE7\xF5es de alimenta\xE7\xE3o e algumas atividades,
-    da melhor forma poss\xEDvel para conseguir concluir as etapas mas tendo em aten\xE7\xE3o
-    a sa\xFAde do Henrique pois cada decis\xE3o ter\xE1 efeitos sobre ele e influenciar
-    diretamente o sucesso da etapa acad\xE9mica e a sua sa\xFAde, n\xE3o bastando
-    por isso avan\xE7ar sem pensar nas consequ\xEAncias.\\n\\n Controlos:\\n - Espa\xE7o
-    : Saltar\\n - Setas Direcionais - Mover Esquerda/Direita"
+    aluno da Universidade de Aveiro.\\n\\nCada n\xEDvel/etapa acad\xE9mica ir\xE1
+    concluir na realiza\xE7\xE3o de um exame ou entrega de um trabalho. Ir\xE1s ajudar
+    o Henrique a percorrer e ultrapassar as diferentes etapas acad\xE9micas e ao
+    mesmo tempo tomar decis\xF5es sobre op\xE7\xF5es de alimenta\xE7\xE3o e algumas
+    atividades, da melhor forma poss\xEDvel. \\n\\n Controlos:\\n - Espa\xE7o : Saltar\\n
+    - Setas Direcionais - Mover Esquerda/Direita"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: bba64d38a77c24b34af1d1969c4bff81, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -616,7 +613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6313726}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9137255}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -788,7 +785,7 @@ GameObject:
   - component: {fileID: 1579884323}
   - component: {fileID: 1579884322}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TextStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1289,7 +1286,7 @@ MonoBehaviour:
   m_text: UniHealth Game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: b01802b2ebca7438c81bc09c22026e6c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1321,7 +1318,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
