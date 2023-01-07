@@ -64,6 +64,8 @@ public class PlayerHealthEnergy : MonoBehaviour
         
     };
 
+    private GameObject collectForAnimation;
+
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +79,8 @@ public class PlayerHealthEnergy : MonoBehaviour
         healthText=GameObject.Find("HealthTextTMP").GetComponent<TMP_Text>();
         effectText= GameObject.Find("EffectTextTMP").GetComponent<TMP_Text>();
         effectText.enabled = false;
+
+        collectForAnimation = GameObject.Find("CollectForAnimation");
 
     }
 
@@ -163,6 +167,8 @@ public class PlayerHealthEnergy : MonoBehaviour
 
             Debug.Log("Colisão com item "+other.gameObject.tag);
             Destroy(other.gameObject);
+            collectForAnimation.GetComponent<ItemCollected>().activateAnimation(other.transform.position);
+            
 
             activateEffectText(other.gameObject.tag);
             Invoke("disableEffectText", 1.5f);
