@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class PlayerHealthEnergy : MonoBehaviour
 {   
@@ -33,8 +34,9 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     private bool firstItemCollected = false;
 
+    private bool isLevel1;
+
     [Header("Movement Reduction Values")]
-    //TODO: Acertar Melhor Valores
     [SerializeField] private float normalReduction=0.04f;
     [SerializeField] private float jumpReduction=0.15f;
     [SerializeField] private float runReduction=0.065f;
@@ -83,8 +85,18 @@ public class PlayerHealthEnergy : MonoBehaviour
         effectText.enabled = false;
 
         collectForAnimation = GameObject.Find("CollectForAnimation");
-        itemDialogue = GameObject.Find("ItemDialogue");
-        itemDialogue.GetComponent<ItemTextDialogue>().makeInactive();
+        try
+        {
+            itemDialogue = GameObject.Find("ItemDialogue");
+            itemDialogue.GetComponent<ItemTextDialogue>().makeInactive();
+            isLevel1 = true;
+        }
+        catch(Exception e)
+        {
+            Debug.Log("Not Level 1");
+            isLevel1 = false;
+        }
+
     }
 
     // Update is called once per frame
@@ -146,7 +158,7 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
 
-        if (!firstItemCollected)
+        if (!firstItemCollected && isLevel1)
         {
             firstItemCollected = true;
             itemDialogue.GetComponent<ItemTextDialogue>().activateTextDialogue();

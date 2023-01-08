@@ -43,4 +43,11 @@ public class CameraFollow : MonoBehaviour
         t.y -= followOffset.y;
         return t;
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Vector2 border = calculateThreshold();
+        Gizmos.DrawWireCube(transform.position, new Vector3(border.x * 2, border.y * 2, 1));
+    }
 }
