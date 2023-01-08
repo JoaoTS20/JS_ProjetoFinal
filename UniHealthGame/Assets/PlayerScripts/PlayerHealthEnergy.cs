@@ -31,6 +31,8 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     private TMP_Text effectText;
 
+    private bool firstItemCollected = false;
+
     [Header("Movement Reduction Values")]
     //TODO: Acertar Melhor Valores
     [SerializeField] private float normalReduction=0.04f;
@@ -66,7 +68,7 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     private GameObject collectForAnimation;
 
-
+    [SerializeField] private GameObject itemDialogue;
     // Start is called before the first frame update
     void Start()
     {
@@ -81,7 +83,8 @@ public class PlayerHealthEnergy : MonoBehaviour
         effectText.enabled = false;
 
         collectForAnimation = GameObject.Find("CollectForAnimation");
-
+        itemDialogue = GameObject.Find("ItemDialogue");
+        itemDialogue.GetComponent<ItemTextDialogue>().makeInactive();
     }
 
     // Update is called once per frame
@@ -142,8 +145,14 @@ public class PlayerHealthEnergy : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        
-        if(itemsEffectDict.ContainsKey(other.gameObject.tag)){
+
+        if (!firstItemCollected)
+        {
+            firstItemCollected = true;
+            itemDialogue.GetComponent<ItemTextDialogue>().activateTextDialogue();
+        }
+
+        if (itemsEffectDict.ContainsKey(other.gameObject.tag)){
 
             catchItemSoundEffect.Play();
 
@@ -166,9 +175,9 @@ public class PlayerHealthEnergy : MonoBehaviour
             }
 
             Debug.Log("Colisão com item "+other.gameObject.tag);
+
             Destroy(other.gameObject);
             collectForAnimation.GetComponent<ItemCollected>().activateAnimation(other.transform.position);
-            
 
             activateEffectText(other.gameObject.tag);
             Invoke("disableEffectText", 1.5f);
@@ -209,5 +218,10 @@ public class PlayerHealthEnergy : MonoBehaviour
         {
             effectText.text = effect + "\n Effect Activated!";
         }
+    }
+
+    public bool IsfirstItemCollected()
+    {
+        return firstItemCollected;
     }
 }
