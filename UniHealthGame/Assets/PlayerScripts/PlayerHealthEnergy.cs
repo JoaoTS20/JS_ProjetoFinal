@@ -34,7 +34,6 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     private bool firstItemCollected = false;
 
-    private bool isLevel1;
 
     [Header("Movement Reduction Values")]
     [SerializeField] private float normalReduction=0.04f;
@@ -71,6 +70,7 @@ public class PlayerHealthEnergy : MonoBehaviour
     private GameObject collectForAnimation;
 
     [SerializeField] private GameObject itemDialogue;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -85,17 +85,6 @@ public class PlayerHealthEnergy : MonoBehaviour
         effectText.enabled = false;
 
         collectForAnimation = GameObject.Find("CollectForAnimation");
-        try
-        {
-            itemDialogue = GameObject.Find("ItemDialogue");
-            itemDialogue.GetComponent<ItemTextDialogue>().makeInactive();
-            isLevel1 = true;
-        }
-        catch(Exception e)
-        {
-            Debug.Log("Not Level 1");
-            isLevel1 = false;
-        }
 
     }
 
@@ -158,10 +147,11 @@ public class PlayerHealthEnergy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
 
-        if (!firstItemCollected && isLevel1)
+        if (!firstItemCollected )
         {
             firstItemCollected = true;
-            itemDialogue.GetComponent<ItemTextDialogue>().activateTextDialogue();
+            Debug.Log("First Item Collected!");
+
         }
 
         if (itemsEffectDict.ContainsKey(other.gameObject.tag)){

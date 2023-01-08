@@ -1485,8 +1485,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -146.67493, y: 71.71973}
-  m_SizeDelta: {x: 524.767, y: 145.9063}
+  m_AnchoredPosition: {x: 46.2987, y: 26.609}
+  m_SizeDelta: {x: 717.7408, y: 206.054}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &588106476
 MonoBehaviour:
@@ -25099,8 +25099,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -146.67493, y: 71.71973}
-  m_SizeDelta: {x: -1395.2329, y: -934.0937}
+  m_AnchoredPosition: {x: 46.298706, y: 14.078186}
+  m_SizeDelta: {x: -1202.2593, y: -876.4522}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1277463529
 MonoBehaviour:
@@ -25122,7 +25122,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Outro Texto
+  m_text: "Every item collected will affect Henrique's health and energy levels,
+    and may also affect Henrique's movements!\r\n\n\rBe Careful and Cautious!\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: cc74800997fa5499ab8d36020197e7f8, type: 2}
@@ -25149,14 +25150,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41
-  m_fontSizeBase: 41
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -33271,8 +33272,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -146.67493, y: 71.71973}
-  m_SizeDelta: {x: -1395.2329, y: -934.0937}
+  m_AnchoredPosition: {x: 73.86633, y: -78.64935}
+  m_SizeDelta: {x: -1174.6917, y: -783.7246}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1989601148
 MonoBehaviour:
@@ -33294,7 +33295,25 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Texto Aparecer
+  m_text: 'Hi!
+
+    
+
+    You''ll have to help Henrique complete this academic stage
+    by passing the level and collect the work/exam form item!
+
+    
+
+    Henrique''s
+    movements waste energy and/or life, be careful not to let it reach 0 or complete
+    the level with low values as they affect Henrique''s score!
+
+    
+
+    Good
+    Luck!
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: cc74800997fa5499ab8d36020197e7f8, type: 2}
@@ -33321,14 +33340,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41
-  m_fontSizeBase: 41
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -33483,8 +33502,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -146.67493, y: 71.71973}
-  m_SizeDelta: {x: 524.767, y: 145.9063}
+  m_AnchoredPosition: {x: 73.866455, y: -83.66168}
+  m_SizeDelta: {x: 745.3084, y: 301.2877}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2022905919
 MonoBehaviour:

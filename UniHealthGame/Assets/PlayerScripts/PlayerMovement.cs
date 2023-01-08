@@ -274,11 +274,9 @@ public class PlayerMovement : MonoBehaviour
     public void detectPlayerHorizontalMovement(float horizontalDirection){
         if (horizontalDirection != 0 & Time.timeScale!=0f)
         {
-            //TODO: TESTAR!!!!!!!!!
             if (!this.gameObject.GetComponent<PlayerHealthEnergy>().isHealthy())
             {
                comicSoundEffect.Play();
-
             }
 
             animator.SetBool("moving", true);
