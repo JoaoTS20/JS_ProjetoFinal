@@ -33297,21 +33297,17 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Hi!
 
-    
 
-    You''ll have to help Henrique complete this academic stage
-    by passing the level and collect the work/exam form item!
+    You''ll have to help Henrique complete this academic stage by
+    passing the level and collect the work/exam form item!
 
-    
 
-    Henrique''s
-    movements waste energy and/or life, be careful not to let it reach 0 or complete
-    the level with low values as they affect Henrique''s score!
+    Henrique''s movements
+    waste energy and/or life, be careful not to let it reach 0 or complete the level
+    with low values as they affect Henrique''s score!
 
-    
 
-    Good
-    Luck!
+    Good Luck!
 
 '
   m_isRightToLeft: 0
