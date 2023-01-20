@@ -60,8 +60,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Items Boost")]
     private Dictionary<string,ItemsClass> itemsBoostDict = new Dictionary<string,ItemsClass>(){
-        {"BebidasEnergeticas", new ItemsClass("BebidasEnergéticas",6,0.5f,0.5f,0.5f)},
-        {"Cafe", new ItemsClass("Cafe",5,0.2f,0.2f,0.2f)},
+        {"BebidasEnergeticas", new ItemsClass("BebidasEnergéticas",6,0.5f,0.5f,0.2f)},
+        {"Cafe", new ItemsClass("Cafe",5,0.2f,0.2f,0.15f)},
         {"Exercicio", new ItemsClass("Exercicio",5,0.2f,0.1f,0.1f)},
         {"FastFood", new ItemsClass("FastFood",3,-0.2f,-0.2f,-0.2f) },
 
