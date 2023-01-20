@@ -191,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        detectPlayerHorizontalMovement(direction.x);
+       
 
     }
 
@@ -215,6 +215,8 @@ public class PlayerMovement : MonoBehaviour
 
         horizontalVelocity = rb.velocity.x;
         verticalVelocity = rb.velocity.y;
+
+        detectPlayerHorizontalMovement(direction.x);
 
     }
 
