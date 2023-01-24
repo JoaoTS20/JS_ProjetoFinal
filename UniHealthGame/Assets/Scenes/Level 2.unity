@@ -2839,9 +2839,9 @@ MonoBehaviour:
   catchItemSoundEffect: {fileID: 762582591}
   currentHealth: 100
   currentEnergy: 100
-  normalReduction: 0.06
-  jumpReduction: 0.15
-  runReduction: 0.1
+  normalReduction: 0.1
+  jumpReduction: 0.2
+  runReduction: 0.2
   itemDialogue: {fileID: 0}
 --- !u!114 &762582594
 MonoBehaviour:
